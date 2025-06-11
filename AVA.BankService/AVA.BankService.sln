@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35728.132 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVA.BankService", "AVA.BankService\AVA.BankService.csproj", "{70D628F6-06AB-47AA-A866-046F411F0A17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVA.BankService.Contracts", "AVA.BankService.Contracts\AVA.BankService.Contracts.csproj", "{6AFE66B1-B2BA-4534-8FF0-6679559C5BA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70D628F6-06AB-47AA-A866-046F411F0A17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D628F6-06AB-47AA-A866-046F411F0A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D628F6-06AB-47AA-A866-046F411F0A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D628F6-06AB-47AA-A866-046F411F0A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AFE66B1-B2BA-4534-8FF0-6679559C5BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AFE66B1-B2BA-4534-8FF0-6679559C5BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AFE66B1-B2BA-4534-8FF0-6679559C5BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AFE66B1-B2BA-4534-8FF0-6679559C5BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
