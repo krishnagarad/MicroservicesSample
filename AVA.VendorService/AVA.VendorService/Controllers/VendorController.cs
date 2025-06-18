@@ -4,19 +4,20 @@ using System.Collections.Generic;
 
 namespace AVA.VendorService.Controllers
 {
+    [Route("api/vendors")]
+    [ApiController]
     public class VendorController : Controller, IVendorAppService
     {
         public static List<VendorDto> Vendors = new List<VendorDto>();
-        [HttpPost("createVendor")]
-        public Task<VendorDto> CreateVendor(VendorDto input)
+        [HttpPost("create")]
+        public Task<VendorDto> Create(VendorDto input)
         {
             input.VendorId = Guid.NewGuid();
             Vendors.Add(input);
             return Task.FromResult(input);
         }
-        [HttpPost("deleteVendor")]
-
-        public Task DeleteVendor(Guid vendorId)
+        [HttpPost("delete")]
+        public Task Delete(Guid vendorId)
         {
             if (Vendors.Any(x=>x.VendorId==vendorId))
             {
@@ -24,13 +25,13 @@ namespace AVA.VendorService.Controllers
             }
             return Task.CompletedTask;
         }
-        [HttpGet("vendors")]
-        public Task<List<VendorDto>> GetVendors()
+        [HttpGet]
+        public Task<List<VendorDto>> Get()
         {
             return Task.FromResult(Vendors);
         }
-        [HttpPut("updateVendor")]
-        public Task<VendorDto> UpdateVendor(VendorDto input)
+        [HttpPut("update")]
+        public Task<VendorDto> Update(VendorDto input)
         {
            var v = Vendors.FirstOrDefault(x => x.VendorId == input.VendorId);
             if (v != null)

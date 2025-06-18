@@ -1,0 +1,6 @@
+@AVA.ReverseProxyGateway_HostAddress = http://localhost:5208
+
+GET {{AVA.ReverseProxyGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

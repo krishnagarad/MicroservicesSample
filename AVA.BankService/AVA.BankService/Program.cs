@@ -1,8 +1,21 @@
+using AVA.BankService;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.OpenApi.Models;
 
 public class Program
 {
-    public static async Task<int> Main(string[] args)
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+    /*public static async Task<int> Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +59,6 @@ public class Program
 
         await app.RunAsync();
         return 0;
-    }
+    }*/
 
 }

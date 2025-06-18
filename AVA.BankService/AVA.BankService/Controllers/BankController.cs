@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AVA.BankService.Controllers
 {
+    [Route("api/banks")]
+    [ApiController]
     public class BankController : Controller, IBankAppService
     {
         public static List<BankDto> Banks = new List<BankDto>();
@@ -20,12 +22,12 @@ namespace AVA.BankService.Controllers
                 UpdatedAt = DateTime.UtcNow
             });
         }
-        [HttpGet("api/banks")]
+        [HttpGet]
         public Task<List<BankDto>> GetAllBanksAsync()
         {
             return Task.FromResult(Banks);
         }
-        [HttpGet("api/banks/{bankId}")]
+        [HttpGet("getbyId/{bankId}")]
         public async Task<BankDto> GetBankDetailsAsync(Guid bankId)
         {
             var bank = Banks.FirstOrDefault(b => b.Id == bankId);

@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
-namespace AVA.VendorService;
-public class Program {
+namespace AVA.OcelotGateway;
+public class Program
+{
     public static void Main(string[] args)
     {
         CreateHostBuilder(args).Build().Run();
@@ -11,6 +14,10 @@ public class Program {
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
+        .ConfigureAppConfiguration((hostingContext, config) =>
+        {
+            config.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+        })
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
@@ -18,23 +25,10 @@ public class Program {
     /*public static async Task<int> Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy(DefaultCorsPolicyName, builder =>
-            {
-                //App:CorsOrigins in appsettings.json can contain more than one address with splitted by comma.
-                builder
-                    .WithOrigins(new string[] { "http://localhost:57310", "https://localhost:44322", "https://localhost:44342" })
-                    .SetIsOriginAllowedToAllowWildcardSubdomains()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-            });
-        });
 
         // Add services to the container.
 
-        builder.Services.AddControllers();
+        //builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
         builder.Services.AddEndpointsApiExplorer();
@@ -43,10 +37,19 @@ public class Program {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Version = "v1",
-                Title = "Vendor Service API",
-                Description = "Vendor service API"                
+                Title = "Ocelot API Web Gateway",
+                Description = "Ocelot API Web Gateway"
+            });
+            options.SwaggerDoc("Vendors Microservice", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "Vendors Microserive",
+                Description = "Vendors Microserive"
             });
         });
+        
+        builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+        builder.Services.AddOcelot(builder.Configuration);
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -56,20 +59,20 @@ public class Program {
         }
 
         app.UseHttpsRedirection();
-
+        app.UseRouting();
         app.UseAuthorization();
 
-        app.MapControllers();
+        //app.MapControllers();
 
-        app.UseCors(DefaultCorsPolicyName); //Enable CORS!
-        app.UseSwagger();
-       
+
+        app.UseSwagger();       
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vendors Service API");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ocelot Gateway");
+            c.SwaggerEndpoint("https://localhost:44342/swagger/v1/swagger.json", "Vendors Microservice");
             c.RoutePrefix = String.Empty;
         });
-
+        await app.UseOcelot();
         await app.RunAsync();
         return 0;
     }*/

@@ -8,9 +8,9 @@ namespace AVA.VendorService.Contracts.Vendors
 {
     public interface IVendorAppService
     {
-        Task<List<VendorDto>> GetVendors();
-        Task<VendorDto> CreateVendor(VendorDto input);
-        Task<VendorDto> UpdateVendor(VendorDto input);
-        Task DeleteVendor(Guid vendorId);
+        Task<List<VendorDto>> Get();
+        Task<VendorDto> Create(VendorDto input);
+        Task<VendorDto> Update(VendorDto input);
+        Task Delete(Guid vendorId);
     }
 }
